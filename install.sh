@@ -1,10 +1,13 @@
-#!/bin/bash
+#!/data/data/com.termux/files/usr/bin/bash
+
 #Clean Install
-rm "./bin/termux-file-editor"
-mkdir bin
+rm "$HOME/bin/termux-file-editor"
+mkdir $HOME/bin
+
 #Installing dependencies
 pkg update -y && pkg install wget -y && pkg install python -y && pkg install ffmpeg -y
+
 #Installing the script
-wget -P "./bin/" --no-check-certificate "https://raw.githubusercontent.com/M3GABOY/termux_converter/master/termux-file-editor" 
-chmod +x "./bin/termux-file-editor"
+cp termux-file-editor "$HOME"/bin/
+chmod +x "$HOME/bin/termux-file-editor"
 termux-setup-storage
