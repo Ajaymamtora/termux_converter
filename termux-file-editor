@@ -1,18 +1,20 @@
-#!/bin/bash
-url=$1
+#!/data/data/com.termux/files/usr/bin/bash
 clear
-echo "Termux Converter script"
-echo "----------Last updated Jun 14 2020----------"
+url=$1
+echo "--------Termux Converter script (Fork)------"
+echo "----------Last updated Jun 26 2020----------"
 echo "--------------------------------------------"
 echo "1: Convert to mp4"
 echo "2: Convert to mp3"
 echo "3: Advanced Conversion"
 echo "q/Default: quit"
 read n
+n=`echo $n | sed 's/ *$//g'` #trim whitespace
+echo "You chose option $n"
 file=$url
 file_name="${url##*/}"
 name="${file_name%.*}"
-[ ! -d "./storage/shared/ffmpeg" ] && mkdir "./storage/shared/ffmpeg" 
+[ ! -d "$HOME/storage/shared/Termux/ffmpeg" ] && mkdir "$HOME/storage/shared/Termux/ffmpeg"
 if [ "$n" == '1' ]; then
 clear
 echo "Please select output quality (default : original)"
@@ -25,14 +27,14 @@ echo "5: 360p (640*360)"
 echo "6: 240p (426*240)"
 read q
 ext="0"
-[[ $q == "0" ]] && ffmpeg -i "$file" -vf scale=3840:2160 -qscale 0 "./storage/shared/ffmpeg/${name}_2160p.mp4" && ext="1"
-[[ $q == "1" ]] && ffmpeg -i "$file" -vf scale=2560:1440 -qscale 0 "./storage/shared/ffmpeg/${name}_1440p.mp4" && ext="1"
-[[ $q == "2" ]] && ffmpeg -i "$file" -vf scale=1920:1080 -qscale 0 "./storage/shared/ffmpeg/${name}_1080p.mp4" && ext="1"
-[[ $q == "3" ]] && ffmpeg -i "$file" -vf scale=1280:720 -qscale 0 "./storage/shared/ffmpeg/${name}_720p.mp4" && ext="1"
-[[ $q == "4" ]] && ffmpeg -i "$file" -vf scale=854:480 -qscale 0 "./storage/shared/ffmpeg/${name}_480p.mp4" && ext="1"
-[[ $q == "5" ]] && ffmpeg -i "$file" -vf scale=640:360 -qscale 0 "./storage/shared/ffmpeg/${name}_360p.mp4" && ext="1"
-[[ $q == "6" ]] && ffmpeg -i "$file" -vf scale=426:240 -qscale 0 "./storage/shared/ffmpeg/${name}_240p.mp4" && ext="1"
-[[ $ext == "0" ]] && ffmpeg -i "$file" -qscale 0 "./storage/shared/ffmpeg/${name}.mp4"
+[[ $q == "0" ]] && ffmpeg -i "$file" -vf scale=3840:2160 -qscale 0 "$HOME/storage/shared/Termux/ffmpeg/${name}_2160p.mp4" && ext="1"
+[[ $q == "1" ]] && ffmpeg -i "$file" -vf scale=2560:1440 -qscale 0 "$HOME/storage/shared/Termux/ffmpeg/${name}_1440p.mp4" && ext="1"
+[[ $q == "2" ]] && ffmpeg -i "$file" -vf scale=1920:1080 -qscale 0 "$HOME/storage/shared/Termux/ffmpeg/${name}_1080p.mp4" && ext="1"
+[[ $q == "3" ]] && ffmpeg -i "$file" -vf scale=1280:720 -qscale 0 "$HOME/storage/shared/Termux/ffmpeg/${name}_720p.mp4" && ext="1"
+[[ $q == "4" ]] && ffmpeg -i "$file" -vf scale=854:480 -qscale 0 "$HOME/storage/shared/Termux/ffmpeg/${name}_480p.mp4" && ext="1"
+[[ $q == "5" ]] && ffmpeg -i "$file" -vf scale=640:360 -qscale 0 "$HOME/storage/shared/Termux/ffmpeg/${name}_360p.mp4" && ext="1"
+[[ $q == "6" ]] && ffmpeg -i "$file" -vf scale=426:240 -qscale 0 "$HOME/storage/shared/Termux/ffmpeg/${name}_240p.mp4" && ext="1"
+[[ $ext == "0" ]] && ffmpeg -i "$file" -qscale 0 "$HOME/storage/shared/ffmpeg/${name}.mp4"
 else
 if [ "$n" == '2' ]; then
 clear
@@ -44,18 +46,20 @@ echo "3: 128k"
 echo "4: 64k"
 read q
 ext="0"
-[[ $q == "1" ]] && ffmpeg -i "$file" -qscale 0 -ab 256k  "./storage/shared/ffmpeg/${name}.mp3" && ext="1"
-[[ $q == "2" ]] && ffmpeg -i "$file" -qscale 0 -ab 192k  "./storage/shared/ffmpeg/${name}.mp3" && ext="1"
-[[ $q == "3" ]] && ffmpeg -i "$file" -qscale 0 -ab 128k  "./storage/shared/ffmpeg/${name}.mp3" && ext="1"
-[[ $q == "4" ]] && ffmpeg -i "$file" -qscale 0 -ab 64k  "./storage/shared/ffmpeg/${name}.mp3" && ext="1"
-[[ $ext == "0" ]] && ffmpeg -i "$file" -qscale 0 -ab 320k  "./storage/shared/ffmpeg/${name}.mp3"
+[[ $q == "1" ]] && ffmpeg -i "$file" -qscale 0 -ab 256k  "$HOME/storage/shared/Termux/ffmpeg/${name}.mp3" && ext="1"
+[[ $q == "2" ]] && ffmpeg -i "$file" -qscale 0 -ab 192k  "$HOME/storage/shared/Termux/ffmpeg/${name}.mp3" && ext="1"
+[[ $q == "3" ]] && ffmpeg -i "$file" -qscale 0 -ab 128k  "$HOME/storage/shared/Termux/ffmpeg/${name}.mp3" && ext="1"
+[[ $q == "4" ]] && ffmpeg -i "$file" -qscale 0 -ab 64k  "$HOME/storage/shared/Termux/ffmpeg/${name}.mp3" && ext="1"
+[[ $ext == "0" ]] && ffmpeg -i "$file" -qscale 0 -ab 320k  "$HOME/storage/shared/Termux/ffmpeg/${name}.mp3"
 else
 if [ "$n" == '3' ]; then
 clear
 echo "Output Format (extension):"
 echo "e.g. |mp4|webm|mkv|avi|mov| for video and |mp3|wav|flac|aac|ogg| for audio"
 read f
-ffmpeg -i "$file" -qscale 0 "./storage/shared/ffmpeg/${name}.${f}"
+f=`echo $f | sed 's/ *$//g'` #trim whitespace
+echo "You chose option $f"
+ffmpeg -i "$file" -qscale 0 "$HOME/storage/shared/Termux/ffmpeg/${name}.${f}"
 fi
 fi
 fi

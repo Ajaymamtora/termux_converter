@@ -1,40 +1,31 @@
 # Termux Converter Script
 Termux Converter Script
-This script requires **ffmpeg, python, wget** to function.
 
-![screenshot.png](/screenshot.png)
+This script requires **ffmpeg, python, wget** to function.
 
 # Using the script
 Launch the "share" option and select Termux.
-
-![share_icon.jpg](/share_icon.jpg)
 
 
 # Installing the script
 Launch Termux and run the follwing commands:
 ```
-#!/bin/bash
 #Clean Install
-rm "./bin/termux-file-editor"
-mkdir bin
+rm -f "$HOME/bin/termux-url-opener"
+mkdir $HOME/bin
+
 #Installing dependencies
-pkg update -y && pkg install wget -y && pkg install python -y && pkg install ffmpeg -y
+pkg update -y && pkg install wget -y && pkg install python -y && pkg install ffmpeg -y && pkg install rsync -y
+yes | pip install youtube-dl && yes | pip install spotdl && yes | pip install gallery-dl
+
 #Installing the script
-wget -P "./bin/" --no-check-certificate "https://raw.githubusercontent.com/M3GABOY/termux_converter/master/termux-file-editor" 
-chmod +x "./bin/termux-file-editor"
+cp termux-url-opener "$HOME"/bin/
+chmod +x "$HOME/bin/termux-url-opener"
 termux-setup-storage
 ```
-Or simply run this
-```
-wget --no-check-certificate "https://raw.githubusercontent.com/M3GABOY/termux_converter/master/install.sh" && chmod +x install.sh && bash install.sh
-```
-
-# FAQ
-This script is blank sensitive. Therefore option "1" and "1 " are treated differently. While "1" will launch option 3, "1 " is invalid and will launch the default option.
 
 # Changelog
 ```
-Created Jun 14 2020
-
+Created Jun 26 2020 tidied script and readme
 ```
 
