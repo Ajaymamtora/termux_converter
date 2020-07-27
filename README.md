@@ -8,7 +8,7 @@ Launch the "share" option and select Termux.
 
 
 # Installing the script
-Launch Termux and run the follwing commands:
+Launch Termux and run the following commands:
 ```
 #Clean Install
 rm -f "$HOME/bin/termux-url-opener"
